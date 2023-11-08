@@ -6,7 +6,7 @@ from tensorflow.keras.datasets import mnist
 
 
 
-autoencoder = load_model('./models/autoencoder.h5')
+autoencoder = load_model('./models/autoencoder_noisy.h5')
 
 (x_train, _), (x_test, _) = mnist.load_data()
 
@@ -17,7 +17,7 @@ conv_x_train = x_train.reshape(-1, 28, 28, 1)
 conv_x_test = x_test.reshape(-1, 28, 28, 1)
 print(conv_x_train.shape, conv_x_test.shape)
 
-noise_factor = 0.1
+noise_factor = 0.5
 conv_x_test_noisy = conv_x_test + np.random.normal(
     loc=0.0, scale=1.0, size=conv_x_test.shape) * noise_factor
 conv_x_test_noisy = np.clip(conv_x_test_noisy, 0.0, 1.0) # 0이하는 0으로 1이상은 1로 자름. 모델을 0~1 사이의 값으로 학습 시켰기에
